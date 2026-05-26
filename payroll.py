@@ -95,12 +95,25 @@ def get_employee(name):
 
 
 def get_employees_by_department(dept):
-    pass
 
+    dept_list = []
+
+    for name in employee_list:
+        if employee_records[name]['dept'] == dept:
+            dept_list.append(name)
+
+    return dept_list
 
 def get_employees_by_level(level):
     pass
 
+    level_list = []
+
+    for name in employee_list:
+        if employee_records[name]['level'] == level:
+            level_list.append(name)
+
+    return level_list
 
 # Part 3 — Benefit Assignment
 
