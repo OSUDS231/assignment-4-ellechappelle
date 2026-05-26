@@ -25,7 +25,35 @@ change_log = []
 # Part 1 — Employee Registration
 
 def add_employee(input_str):
-    pass
+    fields = input_str.split()
+    if len(fields) != 5:
+        raise ValueError(f"Expected 5 fields, got {len(fields)}")
+    name, level, dept, pay_type, pay_amount = fields
+    if name in employee_set:
+        raise ValueError(f"Name already exists: {name}")
+    if level not in VALID_LEVELS:
+        raise ValueError(f"Invalid level: {level}")
+    if dept not in VALID_DEPARTMENTS:
+        raise ValueError(f"Invalid department: {dept}")
+    if pay_type not in VALID_PAY_TYPES:
+        raise ValueError(f"Invalid pay type: {pay_type}")
+    try:
+        pay_amount = float(pay_amount)
+    except ValueError:
+        raise ValueError(f"Invalid pay amount: {pay_amount}")
+
+    employee_list.append(name)
+    employee_set.add(name)
+    employee_records[name] = {
+        'level': level,
+        'dept': dept,
+        'pay_type': pay_type,
+        'pay_amount': pay_amount,
+    }
+
+    employee_benefits[name] = set()
+
+    return employee_records[name]
 
 
 def run_registration():
