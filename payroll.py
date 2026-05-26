@@ -105,7 +105,6 @@ def get_employees_by_department(dept):
     return dept_list
 
 def get_employees_by_level(level):
-    pass
 
     level_list = []
 
@@ -118,7 +117,14 @@ def get_employees_by_level(level):
 # Part 3 — Benefit Assignment
 
 def assign_benefit(name, benefit_code):
-    pass
+
+    if name not in employee_records:
+        raise KeyError(name)
+
+    if benefit_code not in BENEFITS:
+        raise ValueError(f"Invalid benefit code: {benefit_code}")
+
+    employee_benefits[name].add(benefit_code)
 
 
 # Part 4 — Change Log and Modifiers
