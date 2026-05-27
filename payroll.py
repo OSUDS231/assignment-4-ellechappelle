@@ -130,17 +130,58 @@ def assign_benefit(name, benefit_code):
 # Part 4 — Change Log and Modifiers
 
 def save_to_change_log(name):
-    pass
+
+    snapshot = copy.deepcopy(employee_records[name])
+
+    change_log.append({
+        "name": name,
+        "old_record": snapshot,
+    })
 
 
 def update_employee_pay(name, new_amount):
-    pass
+
+    if name not in employee_records:
+        raise KeyError(name)
+
+    try:
+        new_amount = float(new_amount)
+    except ValueError:
+        raise ValueError(f"Invalid pay amount: {new_amount}")
+
+    save_to_change_log(name)
+
+    employee_records[name]["pay_amount"] = new_amount
+
+
+
 
 
 def update_employee_level(name, new_level):
-    pass
+
+    if name not in employee_records:
+        raise KeyError(name)
+
+    if new_level not in VALID_LEVELS:
+        raise ValueError(f"Invalid level: {new_level}")
+
+    save_to_change_log(name)
+
+    employee_records[name]["level"] = new_level
 
 
 def remove_employee(name):
-    pass
+
+    if name not in employee_records:
+        raise KeyError(name)
+
+    save_to_change_log(name)
+
+    del employee_records[name]
+
+    employee_set.remove(name)
+
+    employee_list.remove(name)
+
+    del employee_benefits[name]
 
